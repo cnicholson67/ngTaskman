@@ -1,0 +1,77 @@
+<div class="xl:col-span-2 flex flex-col flex-auto bg-card shadow rounded-2xl" style="height:800px;max-height:800px">
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-title">{{title}}</h4>
+        <button color="accent" aria-label="close" (click)="modal.dismiss('Cross click')">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    <div class="modal-body text-default" style="height:500px;">
+        <div class="grid grid-cols-2 gap-2">
+            <mat-form-field class="col-span-2 w-full">
+                <mat-label>
+                   Name
+                </mat-label>
+                <input matInput [(ngModel)]="Task!.Name" required/>
+            </mat-form-field>
+            <mat-form-field class="col-span-2 w-full">
+                <mat-label>
+                    Description
+                </mat-label>
+                <textarea matInput [(ngModel)]="Task!.Description">
+                </textarea>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Status</mat-label>
+                <select matNativeControl [(ngModel)]="Task!.Status">
+                    <option value="Pending">Pending</option>
+                    <option value="Complete">Complete</option>
+                </select>
+              </mat-form-field>
+              <mat-form-field>
+                <mat-label>Due Date</mat-label>
+                <input matInput [(ngModel)]="tDate" [matDatepicker]="duepicker" (dateChange)="dueChanged(tDate)">
+                <mat-datepicker-toggle matIconSuffix [for]="duepicker"></mat-datepicker-toggle>
+                <mat-datepicker #duepicker></mat-datepicker>
+              </mat-form-field>
+              <div></div>
+                <div class="flex">
+                    <mat-form-field>
+                        <mat-label>Hour</mat-label>
+                        <select matNativeControl [(ngModel)]="Task!.Hour" (change)="onSelectHour(Task!.Hour)">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                            <option value="10">10</option>
+                            <option value="11">11</option>
+                            <option value="12">12</option>
+                        </select>
+                    </mat-form-field>
+                    <mat-form-field>
+                        <mat-label>Minute</mat-label>
+                        <select matNativeControl [(ngModel)]="Task!.Minute"(change)="onSelectMinute(Task!.Minute)">
+                            <option *ngFor="let m of Minutes" [value]="m">
+                                {{m | number:'2.0'}}
+                            </option>
+                        </select>
+                    </mat-form-field>
+                    <mat-form-field>
+                        <mat-label>AM/PM</mat-label>
+                        <select matNativeControl [(ngModel)]="Task!.AMPM" (change)="onSelectAMPM(Task!.AMPM)">
+                            <option value="AM">AM</option>
+                            <option value="PM">PM</option>
+                        </select>
+                    </mat-form-field>
+                </div>
+        </div>
+    </div>
+    <div class="modal-footer text-default">
+      <button mat-raised-button color="accent" aria-label="cancel" (click)="cancelClick()">Cancel</button>
+      <button mat-raised-button color="primary" aria-label="save" (click)="saveClick()">Save Task</button>
+    </div>
+  </div>
