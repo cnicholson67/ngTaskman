@@ -1,26 +1,26 @@
-<div class="absolute flex flex-col min-w-0 overflow-auto" [ngClass]="isMobile ? 'inset-2' : 'inset-10'">
+<div class="absolute flex flex-col min-w-0 overflow-auto" [ngClass]="isMobile ? 'inset-2' : 'inset-10'" role="main">
     <div class="flex flex-row header">
-        <div>
-            <div>
-                <h2>Simple Task Manager</h2>
-            </div>
+        <h2>Simple Task Manager</h2>
+        <div *ngIf="!isMobile" aria-label="Task Actions">
+            <button aria-label="New Task" mat-raised-button color="primary" (click)="NewTask()">New Task</button>
+            <button aria-label="Delete All Tasks" mat-raised-button color="primary" (click)="ClearTasks()">Delete All</button>
         </div>
-        <div *ngIf="!isMobile">
-            <button aria-label="new-task" mat-raised-button color="primary" (click)="NewTask()">New Task</button>
-            <button aria-label="delete-task" mat-raised-button color="primary" (click)="ClearTasks()">Delete All</button>
-        </div>
-        <div *ngIf="isMobile" class="min-w-45">
-            <a class="btn btn-sm btn-secondary" href="javascript:void(0)" (click)="NewTask()">New Task</a>&nbsp;
-            <a class="btn btn-sm btn-secondary" href="javascript:void(0)"  (click)="ClearTasks()">Delete All</a>
+        <div *ngIf="isMobile" class="min-w-45" aria-label="Task Actions">
+            <a class="btn btn-sm btn-secondary" href="javascript:void(0)" (click)="NewTask()" role="button">New Task</a>&nbsp;
+            <a class="btn btn-sm btn-secondary" href="javascript:void(0)" (click)="ClearTasks()" role="button">Delete All</a>
         </div>
     </div>
     <div>
-        <table #TaskTable mat-table [dataSource]="TaskList" matSort="matSort" (matSortChange)="sortData($event,TaskList)">
+        <table #TaskTable mat-table [dataSource]="TaskList" matSort="matSort" (matSortChange)="sortData($event, TaskList)">
             <ng-container matColumnDef="Action">
                 <th mat-header-cell *matHeaderCellDef></th>
-                <td mat-cell *matCellDef="let tsk" class="flex">
-                    <mat-icon (click)="EditTask(tsk)">edit</mat-icon>
-                    <mat-icon (click)="DeleteTask(tsk)">delete</mat-icon>
+                <td mat-cell *matCellDef="let tsk" class="flex" aria-label="Task Actions">
+                    <button mat-icon-button (click)="EditTask(tsk)" aria-label="Edit Task">
+                        <mat-icon>edit</mat-icon>
+                    </button>
+                    <button mat-icon-button (click)="DeleteTask(tsk)" aria-label="Delete Task">
+                        <mat-icon>delete</mat-icon>
+                    </button>
                 </td>
             </ng-container>
             <ng-container matColumnDef="Id">
@@ -42,18 +42,12 @@
             <ng-container matColumnDef="Due">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header>Due</th>
                 <td mat-cell *matCellDef="let tsk">
-                    <span *ngIf="isMobile">{{tsk.Due | date: 'MM/d/yy'}}<br/>{{tsk.Due | date: 'h:mm a'}}</span>
-                    <span *ngIf="!isMobile">{{tsk.Due | date: 'MMM d, yyy h:mm a'  }}</span>
+                    <span *ngIf="isMobile">{{tsk.Due | date: 'h:mm a'}}</span>
+                    <span *ngIf="!isMobile">{{tsk.Due | date: 'MMM d, yyyy h:mm a' }}</span>
                 </td>
             </ng-container>
             <tr mat-header-row *matHeaderRowDef="DisplayColumns"></tr>
             <tr style="" mat-row *matRowDef="let row; columns: DisplayColumns" style="height:auto"></tr>
         </table>
-        <!-- <mat-tab-group>
-            <mat-tab label="List">List</mat-tab>
-            <mat-tab label="Calender">Calender</mat-tab>
-        </mat-tab-group> -->
     </div>
 </div>
-
-
