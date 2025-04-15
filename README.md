@@ -1,8 +1,10 @@
 # NgTaskMan
 
-Node Version 20.15.0
-Recommend using the "Node Version Manager"
-After Downloading Run:
+## Install Notes
+
+Node Version 20.15.0 \
+Recommend using the "Node Version Manager" \
+After Downloading Run the following:
 ```bash
 npm install
 ```
