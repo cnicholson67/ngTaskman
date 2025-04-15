@@ -1,5 +1,4 @@
 import { Component, Output, EventEmitter, Injectable, OnInit} from '@angular/core';
-import { MatRippleModule } from '@angular/material/core';
 import { CommonModule } from '@angular/common';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -11,6 +10,7 @@ import { MatInputModule } from '@angular/material/input'
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import Swal from 'sweetalert2';
+import { DeviceDetectorService } from 'ngx-device-detector';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { Task } from '../../models/Tasks'
@@ -37,6 +37,7 @@ import { TaskService } from '../../services/task.service'
   styleUrl: './modal-edit-task.component.css',
 })
 export class ModalEditTaskComponent implements OnInit {
+  isMobile:boolean = false;
   public Task?: Task;
   Name:string="";
   title?:string;
@@ -44,8 +45,8 @@ export class ModalEditTaskComponent implements OnInit {
 
   Minutes:number[]=[];
   @Output() saved = new EventEmitter();
-  constructor(private taskService:TaskService, public modal: NgbActiveModal){
-
+  constructor(private taskService:TaskService, public modal: NgbActiveModal, private deviceService: DeviceDetectorService){
+    this.isMobile = deviceService.isMobile();
   }
   private formatDate(){
     console.log(this.tDate)

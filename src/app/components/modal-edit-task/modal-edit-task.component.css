@@ -2,3 +2,6 @@
     display: flex;
     justify-content: space-between 
 }
+.time-select{
+    max-width: 80px;
+}

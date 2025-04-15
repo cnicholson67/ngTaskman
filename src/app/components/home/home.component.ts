@@ -12,6 +12,7 @@ import { MatTableDataSource, MatTable } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import {MatIconModule} from '@angular/material/icon';
 import Swal from 'sweetalert2';
+import { DeviceDetectorService } from 'ngx-device-detector';
 import { Task } from '../../models/Tasks'
 import { TaskService } from '../../services/task.service'
 import { ModalEditTaskComponent } from '../../components/modal-edit-task/modal-edit-task.component'
@@ -30,7 +31,7 @@ import { ModalEditTaskComponent } from '../../components/modal-edit-task/modal-e
     MatPaginatorModule,
     MatTable,
     CommonModule,
-    MatIconModule
+    MatIconModule,
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
@@ -38,7 +39,13 @@ import { ModalEditTaskComponent } from '../../components/modal-edit-task/modal-e
 export class HomeComponent implements AfterViewInit{
   @ViewChild('TaskTable', { read: MatSort, static: true }) TaskSort: MatSort;
   TaskList: MatTableDataSource<Task>
-  constructor(private taskService:TaskService, private modalService: NgbModal, private injector: Injector){
+  isMobile:boolean = false;
+  DisplayColumns:string[]= ['Action','Name','Description','Status','Due']
+  constructor(private taskService:TaskService, private modalService: NgbModal, private injector: Injector, private deviceService: DeviceDetectorService){
+    this.isMobile = deviceService.isMobile()
+    if(this.isMobile){
+      this.DisplayColumns = ['Action','Name','Status','Due']
+    } 
     this.TaskSort = new MatSort()
     this.TaskList = new MatTableDataSource<Task>(taskService.Tasks)
     this.TaskList.sort = this.TaskSort 

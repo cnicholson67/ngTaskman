@@ -8,6 +8,7 @@ export class TaskService {
         if (st) {
             this.Tasks = JSON.parse(st);
         }
+        //Gotta do this for the sorting to work
         this.Tasks.forEach(t=>{
             t.Due = new Date(t.Due)
         });
@@ -18,6 +19,7 @@ export class TaskService {
         if (st) {
             this.Tasks = JSON.parse(st);
         }
+        //Gotta do this for the sorting to work
         this.Tasks.forEach(t=>{
             t.Due = new Date(t.Due)
         });
