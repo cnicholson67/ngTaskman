@@ -7,7 +7,7 @@ After Downloading Run the following:
 ```bash
 npm install --legacy-peer-deps
 ```
-*Note --legacy-peer-deps is required for the datepicker. It's a good component, however it needs to be updated. 
+*Note --legacy-peer-deps is required for the datepicker. It's a good component, however, it needs to be updated. 
 
 Install The Angular-Cli Version 19.2.7
 ```bash
